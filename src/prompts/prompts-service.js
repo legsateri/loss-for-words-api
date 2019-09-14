@@ -3,9 +3,9 @@ const PromptsService = {
         return knex.select('*').from('prompts');
     },
 
-    insertPrompts(knex, newPrompts) {
+    insertPrompts(knex, newPrompt) {
         return knex
-            .insert(newPrompts)
+            .insert(newPrompt)
             .into('prompts')
             .returning('*')
             .then(rows => {

@@ -15,11 +15,37 @@ const serializePrompt = prompt => ({
 
 promptsRouter
     .route('/')
+
     .get((req, res, next) => {
         const knexInstance = req.app.get('db');
         PromptsService.getAllPrompts(knexInstance)
             .then(prompts => {
                 res.json(prompts.map(serializePrompt));
+            })
+            .catch(next)
+    })
+
+    .post(jsonParser, (req, res, next) => {
+        const { prompt_content, category, author } = req.body;
+        const newPrompt = { prompt_content, category, author };
+
+        for (const [key, value] of Object.entries(newPrompt)) {
+            if (value == null) {
+                return res.status(400).json({
+                    error: { message: `Missing ${key} in request` }
+                });
+            }
+        }
+        const knexInstance = req.app.get('db');
+        PromptsService.insertPrompts(
+            knexInstance,
+            newPrompt
+        )
+            .then(prompt => {
+                res 
+                    .status(201)
+                    .location(path.posix.join(req.originalUrl, `/${prompt.id}`))
+                    .json(serializePrompt(prompt))
             })
             .catch(next)
     })

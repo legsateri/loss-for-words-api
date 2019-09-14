@@ -28,7 +28,6 @@ promptsRouter
     .post(jsonParser, (req, res, next) => {
         const { prompt_content, category, author } = req.body;
         const newPrompt = { prompt_content, category, author };
-
         for (const [key, value] of Object.entries(newPrompt)) {
             if (value == null) {
                 return res.status(400).json({
@@ -42,12 +41,34 @@ promptsRouter
             newPrompt
         )
             .then(prompt => {
-                res 
+                res
                     .status(201)
                     .location(path.posix.join(req.originalUrl, `/${prompt.id}`))
                     .json(serializePrompt(prompt))
             })
             .catch(next)
+    })
+
+promptsRouter
+    .route('/:prompt_id')
+
+    .all((req, res, next) => {
+        const knexInstance = req.app.get('db');
+        const routeParameter = req.params.prompt_id;
+        PromptsService.getById(knexInstance, routeParameter)
+            .then(prompt => {
+                if (!prompt) {
+                    return res.status(404).json({
+                        error: { message: 'Prompt does not exist' }
+                    });
+                }
+                res.prompt = prompt;
+                next()
+            })
+            .catch(next);
+    })
+    .get((req, res, next) => {
+        res.json(serializePrompt(res.prompt));
     })
 
 module.exports = promptsRouter;

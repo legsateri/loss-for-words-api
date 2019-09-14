@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS lossforwords_prompts;
+DROP TABLE IF EXISTS prompts;

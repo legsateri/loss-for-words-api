@@ -15,6 +15,7 @@ const serializeComment = comment => ({
 
 commentsRouter
     .route('/')
+
     .get((req, res, next) => {
         const knexInstance = req.app.get('db');
         CommentsService.getAllComments(knexInstance)
@@ -24,4 +25,51 @@ commentsRouter
             .catch(next)
     })
 
-module.exports = commentsRouter
+    .post(jsonParser, (req, res, next) => {
+        const { prompt_response, author, prompt_id } = req.body;
+        const newComment = { prompt_response, author, prompt_id };
+
+        for (const [key, value] of Object.entries(newComment)) {
+            if (value == null) {
+                return res.status(400).json({
+                    error: { message: `Missing ${key} in request` }
+                });
+            }
+        }
+        const knexInstance = req.app.get('db');
+        CommentsService.insertComments(
+            knexInstance,
+            newComment
+        )
+            .then(comment => {
+                res
+                    .status(201)
+                    .location(path.posix.join(req.originalUrl, `${comment.id}`))
+                    .json(serializeComment(comment))
+            })
+            .catch(next)
+    })
+
+commentsRouter
+    .route('/:comment_id')
+
+    .all((req, res, next) => {
+        const knexInstance = req.app.get('db');
+        const routeParameter = req.params.comment_id;
+        CommentsService.getById(knexInstance, routeParameter)
+            .then(comment => {
+                if(!comment) {
+                    return res.status(404).json({
+                        error: {message: 'Comment does not exist'}
+                    });
+                }
+                res.comment = comment;
+                next()
+            })
+            .catch(next);
+    })
+    .get((req, res, next) => {
+        res.json(serializeComment(res.comment));
+    })
+
+module.exports = commentsRouter;

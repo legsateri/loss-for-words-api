@@ -1,6 +1,7 @@
 const knex = require('knex');
 const app = require('../src/app');
 const { makePromptsArray } = require('./prompts.fixtures');
+const { makeCommentsArray } = require('./comments.fixtures');
 
 describe.only('Prompts endpoints', () => {
     let db;
@@ -15,9 +16,9 @@ describe.only('Prompts endpoints', () => {
 
     after('disconnect from db', () => db.destroy());
 
-    before('clean the table', () => db('prompts').truncate());
+    before('clean the tables', () => db.raw('TRUNCATE prompts, comments RESTART IDENTITY CASCADE'));
 
-    afterEach('cleanup', () => db.raw('TRUNCATE prompts RESTART IDENTITY CASCADE'));
+    afterEach('cleanup', () => db.raw('TRUNCATE prompts, comments RESTART IDENTITY CASCADE'));
 
     describe('GET /api/prompts', () => {
         context('Given no prompts', () => {
@@ -30,11 +31,17 @@ describe.only('Prompts endpoints', () => {
 
         context('Given there are prompts in the database', () => {
             const testPrompts = makePromptsArray();
+            const testComments = makeCommentsArray();
 
             beforeEach('insert prompts', () => {
                 return db
                     .into('prompts')
                     .insert(testPrompts)
+                    .then(() => {
+                        return db
+                            .into('comments')
+                            .insert(testComments)
+                    })
             })
 
             it('responds w/ 200 and all the prompts', () => {
@@ -57,11 +64,17 @@ describe.only('Prompts endpoints', () => {
 
         context('Given there prompts in the database', () => {
             const testPrompts = makePromptsArray();
+            const testComments = makeCommentsArray();
 
             beforeEach('insert prompts', () => {
                 return db
                     .into('prompts')
                     .insert(testPrompts)
+                    .then(() => {
+                        return db
+                            .into('comments')
+                            .insert(testComments)
+                    })
             });
 
             it('responds w/ 200 and the specified prompt', () => {

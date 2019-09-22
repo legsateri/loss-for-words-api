@@ -10,10 +10,10 @@ CREATE TABLE lossforwords_users (
 
 ALTER TABLE prompts
     ADD COLUMN
-        user_id INTEGER REFERENCES thingful_users(id)
+        user_id INTEGER REFERENCES lossforwords_users(id)
         ON DELETE SET NULL;
 
 ALTER TABLE comments
     ADD COLUMN
-        user_id INTEGER REFERENCES thingful_users(id)
+        user_id INTEGER REFERENCES lossforwords_users(id)
         ON DELETE SET NULL;

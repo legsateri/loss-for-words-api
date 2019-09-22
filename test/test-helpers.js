@@ -58,10 +58,10 @@ function seedUsers(db, users) {
         ...user,
         password: bcrypt.hashSync(user.password, 1)
     }))
-    return db.into('thingful_users').insert(preppedUsers)
+    return db.into('lossforwords_users').insert(preppedUsers)
         .then(() =>
             db.raw(
-                `SELECT setval('thingful_users_id_seq', ?)`,
+                `SELECT setval('lossforwords_users_id_seq', ?)`,
                 [users[users.length - 1].id],
             )
         )

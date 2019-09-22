@@ -1,3 +1,21 @@
+  
+BEGIN;
+
+TRUNCATE
+    prompts,
+    comments,
+    lossforwords_users
+    RESTART IDENTITY CASCADE;
+
+INSERT INTO lossforwords_users (user_name, full_name, nickname, password)
+VALUES
+    ('dunder', 'Dunder Mifflin', null, '$2a$12$zMuVdkEGyOQom/H.vqSnFuSqkOPnNg1xNVQrhwtf7kH0sjxhztWMa'),
+    ('b.deboop', 'Bodeep Deboop', 'Bo', '$2a$12$K.dBODDKrb/AE7lNBLodd.A8gmnHiEukIqqzTMKsuX8ovboIk.FgO'),
+    ('c.bloggs', 'Charlie Bloggs', 'Charlie', '$2a$12$V1AVluOZxo24H5axXJBMWOmtPZs/8jUndSwhOkegz/vBqYt8Rrk3i'),
+    ('s.smith', 'Sam Smith', 'Sam', '$2a$12$QIi4u5MRyPPjxs6C7LrmgOYiPlTwPKSTnsDSbBN1ujtRX1rdfcO5G'),
+    ('lexlor', 'Alex Taylor', 'Lex', '$2a$12$Pnueh0Abohur.boX0vK0s.qGDugJZZTI0BCGEPjyvoaA0twP85Jju'),
+    ('wippy', 'Ping Won In', 'Ping', '$2a$12$wz/U3E7JVWARVTraFC2Y9uSTk70f7ZjkwFfCEe0D4RyjsUXloUrQm');
+
 INSERT INTO prompts (prompt_content, category, author)
 VALUES  
     ('If you could have any zoo animal as a puppy-sized pet, what would you do?', 'Animals', 'Unkown'),
@@ -11,7 +29,7 @@ VALUES
     ('A serial killer confesses to his crimes, in detail.', 'Horror', 'Unkown'),
     ('The Halloween party was a pretty standard affair. Or, at least it was until Gary fell over dead.', 'Horror', 'Unkown'),
     ('A young police detective must find the kidnapped daughter of the mayor. The hitch? She was at a Star Trek convention when she was kidnapped, and the only description of the culprite is that he looked like Mr. Spock.', 'Mystery', 'Unknown'),
-    ('You are legally allowed to commit murder once, but you must first fill out the proper paperwork... and your proposed victim must be notified of your intentions', 'Mystery', 'Unknown'),
+    ('You are legally allowed to commit murder once, but you must first fill out the proper paperwork... and your proposed victim must be notified of your intentions.', 'Mystery', 'Unknown'),
     ('Write a letter to your dad.', 'Nonfiction', 'Unknown'),
     ('Narrate a photo: Find a picure that intrigues you and write about it. What does it remind you of? How does it make you feel? What does it make you think about?', 'Nonfiction', 'Unknown'),
     ('Create a haiku about your favorite food.', 'Poems', 'Unknown'),
@@ -22,3 +40,5 @@ VALUES
     ('A troubled teenager discovers he has the power to see peoples futures by touching them. When he accidentally bumps into a man on the subway, he sees him piloting a spaceship and it is headed straight toward the city. Now he must find the man—and convince everyone else that the fanger is real.', 'Science Fiction', 'Unknown'),
     ('Write about your favorite sports hero.', 'Sports', 'Unknown'),
     ('What would you do after winning the World Series?', 'Sports', 'Unknown');
+
+COMMIT;

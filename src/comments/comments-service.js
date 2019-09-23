@@ -4,13 +4,21 @@ const CommentsService = {
     },
 
     insertComments(knex, newComments) {
-        return knex 
+        return knex
             .insert(newComments)
             .into('comments')
             .returning('*')
             .then(rows => {
                 return rows[0]
             });
+    },
+
+    getByPromptId(knex, prompt_id) {
+        return knex
+            .from('comments')
+            .select('*')
+            .where('propt_id', prompt_id)
+            .first()
     }
 }
 

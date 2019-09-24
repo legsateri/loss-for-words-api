@@ -17,7 +17,7 @@ const CommentsService = {
         return knex
             .from('comments')
             .select('*')
-            .where('propt_id', prompt_id)
+            .where('prompt_id', prompt_id)
             .first()
     }
 }

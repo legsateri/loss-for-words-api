@@ -20,6 +20,14 @@ const PromptsService = {
             .where('id', id)
             .first()
     },
+
+    getByCategory(knex) {
+        return knex
+            .from('prompts')
+            .select('*')
+            .where('category', category)
+            .first()
+    }
 }
 
 module.exports = PromptsService;

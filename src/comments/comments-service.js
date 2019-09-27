@@ -13,6 +13,12 @@ const CommentsService = {
             });
     },
 
+    deleteNotes(knex, id) {
+        return knex('comments')
+            .where({ id })
+            .delete()
+    },
+
     getByPromptId(knex, prompt_id) {
         return knex
             .from('comments')

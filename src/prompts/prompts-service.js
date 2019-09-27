@@ -19,14 +19,6 @@ const PromptsService = {
             .select('*')
             .where('id', id)
             .first()
-    },
-
-    getByCategory(knex) {
-        return knex
-            .from('prompts')
-            .select('*')
-            .where('category', category)
-            .first()
     }
 }
 

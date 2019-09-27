@@ -71,26 +71,4 @@ promptsRouter
         res.json(serializePrompt(res.prompt));
     })
 
-promptsRouter
-    .route('/:category')
-
-    .all((req, res, next) => {
-        const knexInstance = req.app.get('db');
-        const routeParameter = req.params.category;
-        PromptsService.getByCategory(knexInstance, routeParameter)
-            .then(prompt => {
-                if (!prompt) {
-                    return res.status(404).json({
-                        error: { message: 'This category does not exist' }
-                    });
-                }
-                res.prompt = prompt;
-                next()
-            })
-            .catch(next);
-    })
-    .get((req, res, next) => {
-        res.json(serializePrompt(res.prompt));
-    })
-
 module.exports = promptsRouter;

@@ -13,7 +13,7 @@ const CommentsService = {
             });
     },
 
-    deleteNotes(knex, id) {
+    deleteComments(knex, id) {
         return knex('comments')
             .where({ id })
             .delete()
@@ -24,14 +24,6 @@ const CommentsService = {
             .from('comments')
             .select('*')
             .where('id', id)
-            .first()
-    },
-
-    getByPromptId(knex, prompt_id) {
-        return knex
-            .from('comments')
-            .select('*')
-            .where('prompt_id', prompt_id)
             .first()
     }
 }

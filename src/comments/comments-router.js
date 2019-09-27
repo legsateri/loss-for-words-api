@@ -44,7 +44,7 @@ commentsRouter
             .then(comment => {
                 res
                     .status(201)
-                    .location(path.posix.join(req.originalUrl, `${comment.id}`))
+                    .location(path.posix.join(req.originalUrl, `/${comment.id}`))
                     .json(serializeComment(comment))
             })
             .catch(next)
@@ -52,6 +52,7 @@ commentsRouter
 
 commentsRouter
     .route('/:comment_id')
+
     .all((req, res, next) => {
         const knexInstance = req.app.get('db');
         const routeParameter = req.params.comment_id;

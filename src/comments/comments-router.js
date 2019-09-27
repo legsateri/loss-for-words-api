@@ -50,26 +50,4 @@ commentsRouter
             .catch(next)
     })
 
-commentsRouter
-    .route('/:prompt_id')
-
-    .all((req, res, next) => {
-        const knexInstance = req.app.get('db');
-        const routeParameter = req.params.prompt_id;
-        CommentsService.getByPromptId(knexInstance, routeParameter)
-            .then(comment => {
-                if(!comment) {
-                    return res.status(404).json({
-                        error: {message: 'Comment does not exist'}
-                    });
-                }
-                res.comment = comment;
-                next()
-            })
-            .catch(next);
-    })
-    .get((req, res, next) => {
-        res.json(serializeComment(res.comment));
-    })
-
 module.exports = commentsRouter;

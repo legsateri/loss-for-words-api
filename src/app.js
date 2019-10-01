@@ -27,6 +27,14 @@ app.get('/', (req, res) => {
     res.send('Hello, world!')
 })
 
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '/'), function (err) {
+        if (err) {
+            res.status(500).send(err)
+        }
+    })
+})
+
 app.use(function errorHandler(error, req, res, next) {
     let response
     if (NODE_ENV === 'production') {

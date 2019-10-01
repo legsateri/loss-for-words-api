@@ -27,12 +27,9 @@ app.get('/', (req, res) => {
     res.send('Hello, world!')
 })
 
-app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname+'/loss-for-words-app/public/index.html'), function (err) {
-        if (err) {
-            res.status(500).send(err)
-        }
-    })
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'/loss-for-words-app/public/index.html'));
+        
 })
 
 app.use(function errorHandler(error, req, res, next) {

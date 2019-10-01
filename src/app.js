@@ -22,13 +22,14 @@ app.use('/api/prompts', promptsRouter);
 app.use('/api/comments', commentsRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use(express.static(path.join(__dirname, '/loss-for-words-app/public')));
 
 app.get('/', (req, res) => {
     res.send('Hello, world!')
 })
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'./loss-for-words-app/public/index.html'));
+    res.sendFile(path.join(__dirname+'/loss-for-words-app/public/index.html'));
         
 })
 

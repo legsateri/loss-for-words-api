@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/loss-for-words-app/public/index.html'));
+    res.sendFile(path.join(__dirname+'./loss-for-words-app/public/index.html'));
         
 })
 

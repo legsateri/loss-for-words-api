@@ -9,7 +9,7 @@ const PromptsService = {
             .into('prompts')
             .returning('*')
             .then(rows => {
-                return rows[0] 
+                return rows[0]
             });
     },
 
@@ -19,7 +19,13 @@ const PromptsService = {
             .select('*')
             .where('id', id)
             .first()
-    }
+    },
+
+    deletePrompts(knex, id) {
+        return knex('prompts')
+            .where({ id })
+            .delete()
+    },
 }
 
 module.exports = PromptsService;

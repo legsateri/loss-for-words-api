@@ -67,8 +67,20 @@ promptsRouter
             })
             .catch(next);
     })
+
     .get((req, res, next) => {
         res.json(serializePrompt(res.prompt));
+    })
+
+    .delete((req, res, next) => {
+        PromptsService.deletePrompts(
+            req.app.get('db'),
+            req.params.prompt_id
+        )
+            .then(numRowsAffected => {
+                res.status(204).end();
+            })
+            .catch(next)
     })
 
 module.exports = promptsRouter;

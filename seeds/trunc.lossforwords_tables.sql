@@ -1,5 +1,4 @@
 TRUNCATE
     prompts,
-    comments,
-    lossforwords_users
+    comments
   RESTART IDENTITY CASCADE;

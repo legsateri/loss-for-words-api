@@ -3,18 +3,8 @@ BEGIN;
 
 TRUNCATE
     prompts,
-    comments,
-    lossforwords_users
+    comments
     RESTART IDENTITY CASCADE;
-
-INSERT INTO lossforwords_users (user_name, full_name, nickname, password)
-VALUES
-    ('dunder', 'Dunder Mifflin', null, '$2a$12$zMuVdkEGyOQom/H.vqSnFuSqkOPnNg1xNVQrhwtf7kH0sjxhztWMa'),
-    ('b.deboop', 'Bodeep Deboop', 'Bo', '$2a$12$K.dBODDKrb/AE7lNBLodd.A8gmnHiEukIqqzTMKsuX8ovboIk.FgO'),
-    ('c.bloggs', 'Charlie Bloggs', 'Charlie', '$2a$12$V1AVluOZxo24H5axXJBMWOmtPZs/8jUndSwhOkegz/vBqYt8Rrk3i'),
-    ('s.smith', 'Sam Smith', 'Sam', '$2a$12$QIi4u5MRyPPjxs6C7LrmgOYiPlTwPKSTnsDSbBN1ujtRX1rdfcO5G'),
-    ('lexlor', 'Alex Taylor', 'Lex', '$2a$12$Pnueh0Abohur.boX0vK0s.qGDugJZZTI0BCGEPjyvoaA0twP85Jju'),
-    ('wippy', 'Ping Won In', 'Ping', '$2a$12$wz/U3E7JVWARVTraFC2Y9uSTk70f7ZjkwFfCEe0D4RyjsUXloUrQm');
 
 INSERT INTO prompts (prompt_content, category, author)
 VALUES  

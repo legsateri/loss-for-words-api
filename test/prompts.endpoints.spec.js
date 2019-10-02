@@ -87,6 +87,49 @@ describe.only('Prompts endpoints', () => {
         })
     });
 
+    describe('DELETE /api/prompts/:prompt_id', () => {
+
+        context('Given no prompts', () => {
+            it('responds w/ 404', () => {
+                const promptId = 12345;
+                return supertest(app)
+                    .delete(`/api/prompts/${promptId}`)
+                    .expect(404, {
+                        error: { message: 'Prompt does not exist' }
+                    })
+            });
+        });
+
+        context('Given there are prompts in the db', () => {
+            const testComments = makeCommentsArray();
+            const testPrompts = makePromptsArray();
+
+            before('insert prompts', () => {
+                return db
+                    .into('prompts')
+                    .insert(testPrompts)
+                    .then(() => {
+                        return db
+                            .into('comments')
+                            .insert(testComments)
+                    })
+            });
+
+            it('responds w/ 204(no content) and removes the prompt', () => {
+                const idToRemove = 2;
+                const expectedPrompts = testPrompts.filter(prompts => prompts.id !== idToRemove);
+                return supertest(app)
+                    .delete(`/api/prompts/${idToRemove}`)
+                    .expect(204)
+                    .then(res =>
+                        request(app)
+                            .get(`/api/prompts`)
+                            .expect(expectedPrompts)
+                    );
+            });
+        });
+    });
+
     describe('POST /api/prompts', () => {
         it('creates a prompt, responding w/ 201 and the new prompt', () => {
             const newPrompt = {

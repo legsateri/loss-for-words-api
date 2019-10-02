@@ -1,26 +1,56 @@
-# Express Boilerplate!
+# Loss For Words App
 
-This is a boilerplate project used for starting new projects!
+A community creative writing prop application. Users can find prompts that inspire them, comment with their own words, and submit new prompts for other people to respond to. 
 
-## Set up
+## Motivation
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+We wanted a book recommendation app that was community driven. Books and lists are all created by the users.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+Writers block is a very common thing, whether you simply write on occasion or professionally. I wanted to provide inspiration that is practical, fun to use, and engages users in a conversation.
 
-## Scripts
+## Environment Setup
 
-Start the application `npm start`
+1. Setup your own postgress server
+2. Run the 001.do.create_prompts.sql and  002.do.create_comments.sql files to build your table structure
+3. Create a .env file in your server folder which contains the path to your database
+4. Run the seed.lossforwords_tables.sql and trunc.lossforwords_tables.sql diles to seed your database.
+5. Run your project with
+```
+npm run dev
+```
 
-Start nodemon for the application `npm run dev`
+## Running Tests
 
-Run the tests `npm test`
+To run tests, run
+```
+npm test
+```
 
-## Deploying
+## Built With
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+### Back-End
+* Postgress
+* Express
+* Node
+* Knex
+
+### Testing
+* Mocha
+* Chai
+
+## Features
+
+* GET all writing prompts
+* DELETE individual writing prompts
+* POST a writing prompt
+* GET all comments
+* DELETE individual comments
+* POST a comment
+
+## Demo
+
+- [Live Demo](https://loss-for-words-app.legsateri.now.sh/)
+
+## Client
+
+- [Client Repo](https://github.com/legsateri/loss-for-words-app)

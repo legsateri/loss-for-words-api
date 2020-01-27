@@ -4,8 +4,6 @@ A community creative writing prop application. Users can find prompts that inspi
 
 ## Motivation
 
-We wanted a book recommendation app that was community driven. Books and lists are all created by the users.
-
 Writers block is a very common thing, whether you simply write on occasion or professionally. I wanted to provide inspiration that is practical, fun to use, and engages users in a conversation.
 
 ## Environment Setup

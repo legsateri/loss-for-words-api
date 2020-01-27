@@ -1,4 +1,5 @@
 TRUNCATE
     prompts,
-    comments
+    comments,
+    users
   RESTART IDENTITY CASCADE;

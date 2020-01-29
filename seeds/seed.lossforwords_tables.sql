@@ -1,18 +1,9 @@
-  
 BEGIN;
 
 TRUNCATE
     prompts,
-    comments,
-    users
+    comments
     RESTART IDENTITY CASCADE;
-
-INSERT INTO users (email, full_name, password) 
-VALUES
-    ('test-one@testemail.com', 'Test One', '$2a$12$fgQZdIWtKiF4SsqtqWlVau3YaJ0m.URYRD1sZfyGeekWqJnn1GyzO'),
-    ('test-two@testemail.com', 'Test Two', '$2a$12$pfO0zdMXb.FXhMk9kPpUuOPMP6rzQfrVExigI.WSA4dUZpIEo6okq'),
-    ('test-three@testemail.com', 'Test Three', '$2a$12$dXesKXbcIipOEAZDHa/u2e7/wkhGXPZSsggUi.rEC7L0SBG9IH0U2');
-
 
 INSERT INTO prompts (prompt_content, category, author)
 VALUES  
@@ -38,11 +29,5 @@ VALUES
     ('A troubled teenager discovers he has the power to see peoples futures by touching them. When he accidentally bumps into a man on the subway, he sees him piloting a spaceship and it is headed straight toward the city. Now he must find the man—and convince everyone else that the fanger is real.', 'Science Fiction', 'Unknown'),
     ('Write about your favorite sports hero.', 'Sports', 'Unknown'),
     ('What would you do after winning the World Series?', 'Sports', 'Unknown');
-
-INSERT INTO comments (prompt_response, user_id, prompt_id) 
-VALUES
-    ('Words words I write words', 1, 1),
-    ('Things things I write things', 2, 2),
-    ('Boop boop boop bee doo', 3, 3);
 
 COMMIT;
